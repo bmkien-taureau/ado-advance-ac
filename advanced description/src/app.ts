@@ -6,7 +6,7 @@ import {
     IWorkItemNotificationListener,
     WorkItemTrackingServiceIds,
   } from 'azure-devops-extension-api/WorkItemTracking/WorkItemTrackingServices';
-import './css/advanced-description.scss';
+import './css/advanced-ac.scss';
 import { TinyMCE } from 'tinymce/tinymce';
 
 declare const tinymce: TinyMCE;
@@ -36,9 +36,9 @@ SDK.init({
       fixed_toolbar_container: '#editor-toolbar',
       init_instance_callback: function (editor) {
           editor.on('Change', function (e) {
-              var textarea = document.getElementById('advanced-description');
+              var textarea = document.getElementById('advanced-ac');
               if(textarea != null){
-                workItemFormService.setFieldValue('System.Description', editor.getContent());
+                workItemFormService.setFieldValue('Microsoft.VSTS.Common.AcceptanceCriteria', editor.getContent());
               }
           });
           editor.on('focus', function (e) {
