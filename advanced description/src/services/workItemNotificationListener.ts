@@ -18,7 +18,7 @@ export class workItemNotificationListenerService implements IWorkItemNotificatio
 
     public  onLoaded = async (loadedArgs: IWorkItemLoadedArgs) => {
       console.log('IWorkItemNotificationListener.onLoaded - called.', loadedArgs);
-      this.LoadDescription();
+      this.LoadAC();
     };
 
     public  onSaved = async () => console.log('IWorkItemNotificationListener.onSaved - called.');
@@ -29,19 +29,19 @@ export class workItemNotificationListenerService implements IWorkItemNotificatio
     public  onFieldChanged = async (fieldChangedArgs: IWorkItemFieldChangedArgs) => {
       //console.log('IWorkItemNotificationListener.onFieldChanged - called.', fieldChangedArgs);
       if(!this._ignoreSync)
-        tinymce.get('advanced-description')?.setContent(fieldChangedArgs.changedFields['System.Description']);
+        tinymce.get('advanced-ac')?.setContent(fieldChangedArgs.changedFields['Microsoft.VSTS.Common.AcceptanceCriteria']);
     };
 
     public IgnoreSync(ignore: boolean) {
        this._ignoreSync = ignore;
     }
 
-    LoadDescription() {
-      this._workItemService.getFieldValue('System.Description', {
+    LoadAC() {
+      this._workItemService.getFieldValue('Microsoft.VSTS.Common.AcceptanceCriteria', {
         returnOriginalValue: false
       }).then((val)=>{
           var content = val.toString();
-          var textarea = document.getElementById('advanced-description');
+          var textarea = document.getElementById('advanced-ac');
           if(textarea != null) {
             textarea.innerHTML = content;
           }
